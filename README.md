@@ -1,0 +1,4 @@
+haskellman
+==========
+
+haskellman init
