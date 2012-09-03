@@ -76,4 +76,43 @@ pesoDos w h
     | w / h ^ 2 <= 18.5 = "Eres muy bajo de Peso, emo"
     | w / h ^ 2 <= 25.0 = "Eres normal"
     | w / h ^ 2 <= 30.0 = "Estas subiendo de Peso mucho" 
-    | otherwise         = "Estoy gordo, estoy gordo de Big Poppa" 
+    | otherwise         = "Estoy gordo, estoy gordo de Big Poppa"
+
+comparar :: (Ord a) => a -> a -> Ordering
+a `comparar` b
+    | a > b     = GT
+    | a == b    = EQ
+    | otherwise = LT
+
+-- Principio DRY
+
+pesoTres :: (RealFloat q) => q -> q -> String
+pesoTres w h
+    | peso <= 18.5 = "Eres muy bajo de Peso, emo"
+    | peso <= 25.0 = "Eres normal"
+    | peso <= 30.0 = "Estas subiendo de Peso mucho"
+    | otherwise    = "Estoy gordo, estoy gordo de Big Poppa"
+-- Where es construcción sintáctica
+    where peso = w / h ^ 2
+
+pesoCuatro :: (RealFloat q) => q -> q -> String
+pesoCuatro w h
+    | peso <= flaco  = "Eres muy bajo de Peso, emo"
+    | peso <= normal = "Eres normal"
+    | peso <= gordo  = "Estas subiendo de Peso mucho"
+    | otherwise      = "Estoy gordo, estoy gordo de Big Poppa"
+    where peso = w / h ^ 2
+          (flaco, normal, gordo) = (18.5, 25.0, 30.0)
+
+cilindro :: (RealFloat s) => s -> s -> s
+cilindro r h =
+-- Let son expresiones por si misma
+    let ladoArea = 2 * pi * r * h
+        arribaArea = pi * r ^ 2
+    in  ladoArea + 2 * arribaArea
+
+-- Usando el Case como en imperativos
+describeLista :: [a] -> String
+describeLista es = "La lista es" ++ case es of []   -> "una lista vacía."
+                                               [x]   -> "una lista unitaria."
+                                               es    -> "una lista larga."  
