@@ -40,7 +40,62 @@ raices a b c
             e = sqrt d
 --ej 6
 xor_1 :: Bool -> Bool -> Bool
-xor_1 True True = False
-xor_1 True False = True
-xor_1 False True = True
-xor_1 False False = False
+xor_1 a b
+-- xor_1 a _ = error "Mal"
+   | True  || True  =  not False
+   | True  || False =  not True
+   | False || True  =  not True
+   | False || False =  not False
+
+--ej 6.3
+
+xor_3 :: Bool -> Bool -> Bool
+xor_3 a b = (a || b) && not (a && b)
+
+-- Ejercicio 6.4.
+-- Funcion de orden superior
+xor_4 :: Bool -> Bool -> Bool
+xor_4 a b = a /= b
+
+-- Ejercicio 7
+-- ultimos segun indica s
+finales :: Int -> [a] -> [a]
+finales s xs = drop (length xs - s) xs
+
+-- Ejercicio 8
+-- Funcion de eliminacion Drop y take
+-- Dos funciones en un mismo ejecucion como lo hace lambda 
+segmento :: Int -> Int -> [a] -> [a]
+-- drop se comporta de atras adelan
+-- take toma las primeras posiciones
+segmento o p xs = drop(o-1) (take p xs)
+
+-- Uso de funcion max y min de Haskell
+
+mediano :: (Num a, Ord a) => a -> a -> a -> a
+mediano x y z = x + y + z - minimum [x,y,z] - maximum [x,y,z]
+
+-- Ejercicio 10. 
+-- distancia :: (Floating a) => a1 -> b1 -> a2 -> b2 -> a  
+distancia x1 y1 x2 y2 = sqrt((x1-x2)^2 + (y1-y2)^2)
+
+-- Ejercicio 11.
+extremos n xs = take n xs ++ drop (length xs - n) xs
+
+-- Ejercicio 12.
+puntoMedio :: (Fractional a, Fractional b) => (a, b) -> (a, b) -> (a, b)
+puntoMedio (x1,y1) (x2,y2) = ((x1+x2)/2, (y1+y2)/2)
+
+-- Ejercicio 13.
+ciclo :: [a] -> [a]
+ciclo [] = []
+ciclo xs = last xs : init xs
+
+-- Ejercicio 14.
+numeroMayor :: (Num a, Ord a) => t -> t1 -> a
+numeroMayor u x = u*10 + x
+      where u = max u x
+            x = min u x
+-- ejecicio 15.
+triangular :: (Num a, Ord a) => a -> a -> a -> Bool
+triangular a b c = a < b+c && b < a+c && c < a+b
